@@ -1,6 +1,5 @@
 # Toefl_App
 
-![CI Pipeline](https://github.com/Mehmetcelikten/Toefl_App/actions/workflows/ci.yml/badge.svg)
 
 This repository contains the **TOEFL Preparation App**.  
 - Backend: Node.js + Express + PostgreSQL  
