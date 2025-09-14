@@ -69,6 +69,14 @@ CREATE TABLE IF NOT EXISTS speaking_attempts(
   taken_at timestamptz DEFAULT now()
 );
 
+-- Favorites tablosu: kullanıcıların favori kelimeleri
+CREATE TABLE IF NOT EXISTS favorites (
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  word_id INT REFERENCES words(id) ON DELETE CASCADE,
+  created_at timestamptz DEFAULT now(),
+  PRIMARY KEY (user_id, word_id)
+);
+
 -- ====== VOCAB SEED (40 items, B2–C1 mix) ======
 INSERT INTO words(term,meaning,example,level) VALUES
 ('meticulous','very careful and precise','She keeps meticulous notes for each lecture.','C1'),
@@ -156,12 +164,13 @@ VALUES
  'Library Change',
  'Reading: The library will pilot a silent floor policy. Listening: A student supports the change for concentration, yet fears it could make group work harder.',
  30, 60, 's3://dummy/listening2.m4a');
+
 CREATE TABLE IF NOT EXISTS test_table (
   id SERIAL PRIMARY KEY,
   name TEXT
 );
 
--- Progress tablosu: Kullanıcıların quiz ilerlemesini takip eder
+-- Progress tablosu
 CREATE TABLE IF NOT EXISTS progress (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -171,7 +180,7 @@ CREATE TABLE IF NOT EXISTS progress (
   last_activity DATE DEFAULT CURRENT_DATE
 );
 
--- Badges tablosu: Kullanıcıların kazandığı rozetler
+-- Badges tablosu
 CREATE TABLE IF NOT EXISTS badges (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -191,5 +200,4 @@ CREATE TABLE IF NOT EXISTS writing_attempts (
   created_at timestamptz DEFAULT now()
 );
 
-INSERT INTO test_table (name) VALUES ('hello'), ('world');
 
